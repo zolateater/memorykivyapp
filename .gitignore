@@ -3,3 +3,5 @@ bin/*
 .buildozer/
 kivyinstall/
 !.gitkeep
+__pycache__/*
+memory_config.json

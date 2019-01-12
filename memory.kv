@@ -22,7 +22,7 @@
         text: 'Statistics'
     MenuButton:
         text: 'Quit'
-        id: 'quit_button'
+        id: quit_button
         on_release: app.stop()
 
 <MainScreen>:
@@ -32,19 +32,22 @@
         ButtonBoxMenu:
 
 <ListScreen>:
+    id: listscreen
     AnchorLayout:
         id: 'anchor'
         padding: ['10dp', '10dp']
         BoxLayout:
-            id: 'box_tabs'
+            id: box_tabs
             spacing: '10dp'
             orientation: 'vertical'
             size_hint: 0.9, 0.9
             BoxLayout:
+                id: switch_layout
                 spacing: '5dp'
                 orientation: 'vertical'
                 size_hint: 1, 0.2
             BoxLayout:
+                id: number_input_layout
                 orientation: 'vertical'
                 size_hint: 1, 0.7
                 NumberInputGroup:
@@ -79,7 +82,8 @@
         orientation: 'horizontal'
         Label:
             text: '00'
-            id: 'label'
+            id: label
             size_hint: 0.1, 1
         TextInput:
+            id: input
             size_hint: 0.9, 1

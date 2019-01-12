@@ -14,6 +14,10 @@ DIGIT_GROUP_NAMES = [
 def get_numbers_keys_for_group(group: str) -> List[str]:
     return [group + str(i) for i in range(0, 10)]
 
+def get_number_values_for_group(group: str) -> List[str]:
+    if group == '_':
+        group = ''
+    return [group + str(i) for i in range(0, 10)]
 
 def get_all_keys() -> List[str]:
     return [key for g in DIGIT_GROUPS for key in get_numbers_keys_for_group(g)]

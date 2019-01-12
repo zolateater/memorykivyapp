@@ -6,7 +6,7 @@ from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
-from src.config.appconfig import NumberConfig, write_config_to_stream
+from src.config.appconfig import NumberConfig, write_config_to_stream, get_number_values_for_group, get_numbers_keys_for_group
 from copy import deepcopy
 
 
@@ -31,16 +31,16 @@ class ListScreen(Screen):
         super().__init__(**kwargs)
         self.config = config
         self.local_config = deepcopy(config) 
-        self.current_group_id = '0'
+        self.current_group_id = None
         self.group_switch_buttons = WeakValueDictionary()
         self.inputs = WeakValueDictionary()
         self.populate_tabs()
         self.colorize_buttons()
-        self.select_group(self.current_group_id)
+        self.select_group('0')
+        self.set_input_handlers()
 
     def get_group_switch_layout(self) -> BoxLayout:
-        # Is there a reason why you can't use ids during __init__?
-        return self.children[0].children[0].children[2]
+        return self.ids.switch_layout
 
     def populate_tabs(self):
         parent = self.get_group_switch_layout()
@@ -74,6 +74,32 @@ class ListScreen(Screen):
         btn: ToggleButton = self.group_switch_buttons[group_id]
         btn.state = 'down'
 
+        label_names = reversed(get_number_values_for_group(group_id))
+        label_ids = reversed(get_numbers_keys_for_group(group_id))
+
+        self.unset_input_handlers()
+        for text, label_id, number_input in zip(label_names, label_ids, self.number_inputs()):
+            number_input.ids.label.text = text
+            number_input.ids.input.text = self.local_config.get_value_for(label_id)
+            number_input.ids.input.config_id = label_id
+
+        self.set_input_handlers()
+        self.current_group_id = group_id
+
+    def set_input_handlers(self):
+        for number_input in self.number_inputs():
+            number_input.ids.input.bind(text=self.update_text_value)
+
+    def unset_input_handlers(self):
+        for number_input in self.number_inputs():
+            number_input.ids.input.unbind(text=self.update_text_value)
+
+    def number_inputs(self):
+        return self.ids.number_input_layout.children
+
+    def update_text(self, label_id, text):
+        self.local_config.set_value_for(label_id, text)
+
     def save_changes(self):
         for key, value in self.local_config._data.items():
             self.config.set_value_for(key, value)
@@ -83,8 +109,16 @@ class ListScreen(Screen):
 
     def cancel(self):
         self.local_config = deepcopy(self.config)
-        self._to_main_screen() 
+        self._to_main_screen()
+
+    def update(self):
+        self.select_group(self.current_group_id)
+        self.colorize_buttons()
     
     def _to_main_screen(self):
         self.parent.transition.direction = 'right'
         self.parent.current = 'main'
+
+    def update_text_value(self, instance, value):
+        self.local_config.set_value_for(instance.config_id, value)
+        self.colorize_buttons()

@@ -13,9 +13,9 @@ class MemoryScreenManager(ScreenManager):
         if 'list' not in self.screen_names:
             list_screen = ListScreen(name='list', config=number_config)
             self.add_widget(list_screen)
-        
         self.transition.direction = 'left'
         self.current = 'list'
+        self.current_screen.update()
 
 
 class MemoryApp(App):
