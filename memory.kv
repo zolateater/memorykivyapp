@@ -3,107 +3,87 @@
 <MenuButton>:
     font_size: '30sp'
 
-# <ButtonBoxMenu>:
-#     orientation: 'vertical'
-#     spacing: "5dp"
-#     size_hint_x: 0.7
-#     size_hint_y: 0.9
-#     Label: 
-#         text: 'The 100 List App'
-#         font_size: '40sp'
-#     MenuButton:
-#         text: 'How this works?'
-#     MenuButton:
-#         text: 'Your list'
-#         on_release: app.root.to_list_screen(app.number_config)
-#     MenuButton:
-#         text: 'Training'
-#     MenuButton:
-#         text: 'Statistics'
-#     MenuButton:
-#         text: 'Quit'
-#         id: quit_button
-#         on_release: app.stop()
+<ButtonBoxMenu>:
+    orientation: 'vertical'
+    spacing: "5dp"
+    size_hint_x: 0.7
+    size_hint_y: 0.9
+    Label: 
+        text: 'The 100 List App'
+        font_size: '40sp'
+    MenuButton:
+        text: 'How this works?'
+    MenuButton:
+        text: 'Your list'
+        #on_release: app.root.to_list_screen(app.number_config)
+    MenuButton:
+        text: 'Training'
+    MenuButton:
+        text: 'Statistics'
+    MenuButton:
+        text: 'Quit'
+        id: quit_button
+        on_release: app.stop()
 
 <MainScreen>:
     name: 'main'
     AnchorLayout:
         padding: ['10dp', '10dp']
-        BoxLayout:
-            orientation: 'vertical'
-            spacing: "5dp"
-            size_hint_x: 0.7
-            size_hint_y: 0.9
-            Label: 
-                text: 'The 100 List App'
-                font_size: '40sp'
-            MenuButton:
-                text: 'How this works?'
-            MenuButton:
-                text: 'Your list'
-                #on_release: app.root.to_list_screen(app.number_config)
-            MenuButton:
-                text: 'Training'
-            MenuButton:
-                text: 'Statistics'
-            MenuButton:
-                text: 'Quit'
-                id: quit_button
-                on_release: app.stop()
+        ButtonBoxMenu:
 
-# <ListScreen>:
-#     id: listscreen
-#     AnchorLayout:
-#         id: 'anchor'
-#         padding: ['10dp', '10dp']
-#         BoxLayout:
-#             id: box_tabs
-#             spacing: '10dp'
-#             orientation: 'vertical'
-#             size_hint: 0.9, 0.9
-#             BoxLayout:
-#                 id: switch_layout
-#                 spacing: '5dp'
-#                 orientation: 'vertical'
-#                 size_hint: 1, 0.2
-#             BoxLayout:
-#                 id: number_input_layout
-#                 orientation: 'vertical'
-#                 size_hint: 1, 0.7
-#                 NumberInputGroup:
-#                 NumberInputGroup:
-#                 NumberInputGroup:
-#                 NumberInputGroup:
-#                 NumberInputGroup:
-#                 NumberInputGroup:
-#                 NumberInputGroup:
-#                 NumberInputGroup:
-#                 NumberInputGroup:
-#                 NumberInputGroup:
-#             AnchorLayout:
-#                 size_hint: 1, 0.1
-#                 BoxLayout:
-#                     size_hint: 0.5, 1
-#                     orientation: 'horizontal'
-#                     spacing: '5dp'
-#                     Button:
-#                         text: 'Cancel'
-#                         on_release: app.root.current_screen.cancel()
-#                     Button:
-#                         text: 'Save'
-#                         on_release: app.root.current_screen.save_changes()
+<ListScreen>:
+    id: listscreen
+    AnchorLayout:
+        id: 'anchor'
+        padding: ['10dp', '10dp']
+        BoxLayout:
+            id: box_tabs
+            spacing: '10dp'
+            orientation: 'vertical'
+            size_hint: 0.9, 0.9
+            BoxLayout:
+                id: switch_layout
+                spacing: '5dp'
+                orientation: 'vertical'
+                size_hint: 1, 0.2
+            BoxLayout:
+                id: number_input_layout
+                orientation: 'vertical'
+                size_hint: 1, 0.7
+                NumberInputGroup:
+                NumberInputGroup:
+                NumberInputGroup:
+                NumberInputGroup:
+                NumberInputGroup:
+                NumberInputGroup:
+                NumberInputGroup:
+                NumberInputGroup:
+                NumberInputGroup:
+                NumberInputGroup:
+            AnchorLayout:
+                size_hint: 1, 0.1
+                BoxLayout:
+                    size_hint: 0.5, 1
+                    orientation: 'horizontal'
+                    spacing: '5dp'
+                    Button:
+                        text: 'Cancel'
+                        on_release: app.root.current_screen.cancel()
+                    Button:
+                        text: 'Save'
+                        on_release: app.root.current_screen.save_changes()
 
 <MemoryScreenManager>:
     MainScreen:
 
-# <NumberInputGroup>:
-#     BoxLayout:
-#         spacing: '10dp'
-#         orientation: 'horizontal'
-#         Label:
-#             text: '00'
-#             id: label
-#             size_hint: 0.1, 1
-#         TextInput:
-#             id: input
-#             size_hint: 0.9, 1
+<NumberInputGroup>:
+    BoxLayout:
+        spacing: '10dp'
+        orientation: 'horizontal'
+        Label:
+            text: '00'
+            id: label
+            size_hint: 0.1, 1
+        TextInput:
+            id: input
+            size_hint: 0.9, 1

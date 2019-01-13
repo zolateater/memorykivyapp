@@ -20,24 +20,24 @@ from kivy.uix.screenmanager import Screen
 
 
 
-# DIGIT_GROUPS = [
-#     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '_', # For 0-9
-# ]
-# DIGIT_GROUP_NAMES = [
-#     '00-09', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90-99', '0-9'
-# ]
+DIGIT_GROUPS = [
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '_', # For 0-9
+]
+DIGIT_GROUP_NAMES = [
+    '00-09', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90-99', '0-9'
+]
 
 
-# def get_numbers_keys_for_group(group: str):
-#     return [group + str(i) for i in range(0, 10)]
+def get_numbers_keys_for_group(group):
+    return [group + str(i) for i in range(0, 10)]
 
-# def get_number_values_for_group(group: str):
-#     if group == '_':
-#         group = ''
-#     return [group + str(i) for i in range(0, 10)]
+def get_number_values_for_group(group):
+    if group == '_':
+        group = ''
+    return [group + str(i) for i in range(0, 10)]
 
-# def get_all_keys():
-#     return [key for g in DIGIT_GROUPS for key in get_numbers_keys_for_group(g)]
+def get_all_keys():
+    return [key for g in DIGIT_GROUPS for key in get_numbers_keys_for_group(g)]
 
 
 
@@ -47,8 +47,8 @@ class MenuButton(Button):
     pass
 
 
-# class ButtonBoxMenu(BoxLayout):
-#     pass
+class ButtonBoxMenu(BoxLayout):
+    pass
 
 
 class MainScreen(Screen):
@@ -56,19 +56,19 @@ class MainScreen(Screen):
 
 
 
-# class NumberConfig:
-#     def __init__(self, data: Optional[dict] = None) -> None:
-#         self._data = dict()
-#         for key in get_all_keys():
-#             self._data[key] = data[key]['person'] if data and key in data else ''
+class NumberConfig:
+    def __init__(self, data=None):
+        self._data = dict()
+        for key in get_all_keys():
+            self._data[key] = data[key]['person'] if data and key in data else ''
 
-#     def get_value_for(self, assoc: str) -> str:
+#     def get_value_for(self, assoc):
 #         return self._data[assoc]
 
-#     def set_value_for(self, assoc: str, value: str) -> None:
+#     def set_value_for(self, assoc, value) -> None:
 #         self._data[assoc] = value
 
-#     def digit_group_filled(self, group: str) -> bool:
+#     def digit_group_filled(self, group):
 #         return all([self._data[key] for key in get_numbers_keys_for_group(group)])
 
 #     @staticmethod
@@ -76,28 +76,28 @@ class MainScreen(Screen):
 #         return zip(DIGIT_GROUPS, DIGIT_GROUP_NAMES)
 
 
-# def read_config_from_stream(stream) -> NumberConfig:
-#     return NumberConfig(json.loads(stream.read()))
+def read_config_from_stream(stream):
+    return NumberConfig(json.loads(stream.read()))
 
 
-# def write_config_to_stream(stream, config: NumberConfig) -> None:
-#     result = {k: {'person': config.get_value_for(k)} for k in get_all_keys()}
-#     stream.write(json.dumps(result))
+def write_config_to_stream(stream, config):
+    result = {k: {'person': config.get_value_for(k)} for k in get_all_keys()}
+    stream.write(json.dumps(result))
 
 
-# def by_chunk(iterable, n):
-#     buffer = []
-#     for i in iterable:
-#         buffer.append(i)
-#         if len(buffer) >= n:
-#             yield buffer
-#             buffer = []
+def by_chunk(iterable, n):
+    buffer = []
+    for i in iterable:
+        buffer.append(i)
+        if len(buffer) >= n:
+            yield buffer
+            buffer = []
 
-#     yield buffer
+    yield buffer
 
 
-# class NumberInputGroup(BoxLayout):
-#     pass
+class NumberInputGroup(BoxLayout):
+    pass
 
 
 # class ListScreen(Screen):
@@ -224,10 +224,18 @@ class MemoryApp(App):
 
     def build(self):
         # self.number_config = self.read_config_from_disk()
-        manager = MemoryScreenManager()
-        manager.current_screen = 'main'
-        return manager
+        # manager = MemoryScreenManager()
+        # manager.current_screen = 'main'
+        return MemoryScreenManager()
 
 
 if __name__ == '__main__':
     MemoryApp().run()
+
+"""
+No need to select current screen
+Commenting out ListScreen doesn't fix the app
+Uncommenting config code crushes the app
+Uncommenting NumberConfig and functions breaks the app
+These might be the typings
+"""
