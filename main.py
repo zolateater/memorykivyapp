@@ -101,17 +101,25 @@ class NumberInputGroup(BoxLayout):
 
 
 class ListScreen(Screen):
-    def __init__(self, config, **kwargs):
-        super().__init__(**kwargs)
+    
+    def set_up(self, config):
         self.config = config
+        print("Before calling deepcopy()")
         self.local_config = deepcopy(config) 
+        print("After calling deepcopy()")
         self.current_group_id = None
+        print("Before weakref()")
         self.group_switch_buttons = WeakValueDictionary()
         self.inputs = WeakValueDictionary()
+        print("Before populate_tabs()")
         self.populate_tabs()
+        print("Before colorize_buttons()")
         self.colorize_buttons()
+        print("Before select_group(0)")
         self.select_group('0')
+        print("Before set_input_handlers()")
         self.set_input_handlers()
+
 
     def get_group_switch_layout(self):
         return self.ids.switch_layout
@@ -201,14 +209,16 @@ class ListScreen(Screen):
 
 
 class MemoryScreenManager(ScreenManager):
-    pass
-    # def to_list_screen(self, number_config):
-    #     if 'list' not in self.screen_names:
-    #         list_screen = ListScreen(name='list', config=number_config)
-    #         self.add_widget(list_screen)
-    #     self.transition.direction = 'left'
-    #     self.current = 'list'
-    #     self.current_screen.update()
+
+    def to_list_screen(self, number_config):
+        if 'list' not in self.screen_names:
+            print('Before creating ListScreen')
+            list_screen = ListScreen(name='list')
+            list_screen.set_up(config=number_config)
+            self.add_widget(list_screen)
+        self.transition.direction = 'left'
+        self.current = 'list'
+        self.current_screen.update()
 
 
 class MemoryApp(App):
@@ -223,6 +233,7 @@ class MemoryApp(App):
             return NumberConfig()
         except:
             logging.exception("Cannot read the file")
+            return NumberConfig()
 
     def build(self):
         self.number_config = self.read_config_from_disk()
@@ -243,4 +254,7 @@ commented # self.number_config = self.read_config_from_disk() app works
 seems like self.read_config_from_disk() breaks the app
 except on file read doesn't help
 seems like open('memory_config.json', 'r') as file_stream breaks the app
+def to_list_screen doesn't break the app itself
+on_release: app.root.to_list_screen(app.number_config) itself doesn't break the app, but calling it does
+creating ListScreen breaks the app on clicking Your List
 """
