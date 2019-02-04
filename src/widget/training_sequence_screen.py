@@ -2,6 +2,7 @@ import random
 
 from kivy.clock import Clock
 from kivy.uix.screenmanager import Screen
+from kivy.uix.label import Label
 from src.widget.training_sequence_settings_screen import TrainingSettings
 from src.config.number_config import NumberConfig
 
@@ -52,6 +53,12 @@ class TrainingSequenceScreen(Screen):
     def remind_label(self):
         return self.ids.label_assoc
 
+    def label_numbers_count(self):
+        """
+        :rtype: Label
+        """
+        return self.ids.label_numbers_count
+
     def cancel_countdown(self):
         if self.current_event:
             self.current_event.cancel()
@@ -79,6 +86,8 @@ class TrainingSequenceScreen(Screen):
         else:
             remind_btn.disabled = True
             remind_btn.text = 'No association'
+
+        self.label_numbers_count().text = "%s out of %s" % (self.current_sequence_index + 1, len(self.sequence))
 
     def remind(self):
         self.remind_label().text = self.number_config.get_value_for(self.sequence[self.current_sequence_index])

@@ -60,12 +60,12 @@ class TrainingSequenceSettingsScreen(Screen):
         self.settings = settings
 
     def on_numbers_count_change(self, new_value):
-        self.ids.label_numbers_count.text = "Numbers: " + str(new_value)
-        self.settings.numbers_count = new_value
+        self.ids.label_numbers_count.text = "Numbers: " + str(int(new_value))
+        self.settings.numbers_count = int(new_value)
 
     def on_time_per_number_change(self, new_value):
-        self.ids.label_time_per_number.text = "Seconds to remember one number: " + str(new_value)
-        self.settings.time_per_number = new_value
+        self.ids.label_time_per_number.text = "Seconds to remember one number: " + str(int(new_value))
+        self.settings.time_per_number = int(new_value)
 
     def show_error_tooltip(self):
         label = self.ids.label_error

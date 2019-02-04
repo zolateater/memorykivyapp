@@ -7,11 +7,19 @@
             size_hint_x: 0.7
             size_hint_y: 0.9
             BoxLayout:
-                orientation: 'horizontal'
-                Label:
-                    text: 'Seconds left for current number:'
-                Label:
-                    id: label_time_left
+                orientation: 'vertical'
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Label:
+                        text: 'Seconds left for current number:'
+                    Label:
+                        id: label_time_left
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Label:
+                        text: 'Number:'
+                    Label:
+                        id: label_numbers_count
             Label:
                 text: 'Current number:'
                 font_size: '32sp'

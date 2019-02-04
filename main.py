@@ -1,7 +1,9 @@
 import logging
+import os
+
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
-from src.config.number_config import NumberConfig
+from src.config.number_config import NumberConfig, read_config_from_stream
 from src.widget.list_screen import ListScreen
 from src.widget.training_sequence_settings_screen import TrainingScreen, TrainingSelectionScreen, TrainingSettings, \
     TrainingSequenceSettingsScreen
@@ -100,11 +102,16 @@ class MemoryScreenManager(ScreenManager):
         self.__back_to_screen('main')
 
 
-def read_config_from_disk():
+def read_config_from_disk(path):
+    """
+    :param str path:
+    :rtype: NumberConfig
+    """
     try:
-        # with open('memory_config.json', 'r') as file_stream:
-        return NumberConfig()
-        # return read_config_from_stream(file_stream)
+        if not os.path.exists(path):
+            return NumberConfig()
+        with open(path, 'r') as file_stream:
+            return read_config_from_stream(file_stream)
     except FileNotFoundError:
         logging.info('No config file found.')
         return NumberConfig()
@@ -114,10 +121,23 @@ def read_config_from_disk():
 
 
 class MemoryApp(App):
+
+    def get_application_config(self, **kwargs):
+        """
+        :param kwargs:
+        :return: path to config file
+        :rtype: str
+        """
+        return super(MemoryApp, self).get_application_config('~/.memory_config.json')
+
     def build(self):
         msm = MemoryScreenManager()
-        msm.set_up(read_config_from_disk())
+        msm.set_up(read_config_from_disk(self.get_application_config()))
+        #msm.set_up(NumberConfig())
         return msm
+
+    def on_stop(self):
+        return True
 
 
 if __name__ == '__main__':

@@ -194,4 +194,4 @@
             multiline: False
             size_hint: 0.9, 1
             id: input
-            on_text: app.root.current_screen.update_config(self.parent.parent.index, self.text)
+            on_text: app.root.current_screen.update_config(self.parent.parent.index, self.text) if app.root.current_screen.name == 'list' else None

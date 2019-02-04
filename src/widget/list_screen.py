@@ -1,5 +1,7 @@
+from kivy.app import App
 from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
+
 from src.config.number_config import write_config_to_stream, get_readable_key
 from copy import deepcopy
 
@@ -71,7 +73,7 @@ class ListScreen(Screen):
         # TODO: better NumberConfig interface
         for key, value in self.local_config._data.items():
             self.config.set_value_for(key, value)
-        with open('memory_config.json', 'w') as file_stream:
+        with open(App.get_running_app().get_application_config(), 'w') as file_stream:
             write_config_to_stream(file_stream, self.config)
         self.parent.to_main_screen()
 
