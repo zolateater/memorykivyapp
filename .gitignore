@@ -1,5 +1,6 @@
 bin/*
 .vscode/
+.idea/
 .buildozer/
 kivyinstall/
 __pycache__/*

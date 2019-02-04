@@ -1,0 +1,43 @@
+<TrainingSequenceScreen>:
+    AnchorLayout:
+        padding: ['10dp', '10dp']
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: "5dp"
+            size_hint_x: 0.7
+            size_hint_y: 0.9
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    text: 'Seconds left for current number:'
+                Label:
+                    id: label_time_left
+            Label:
+                text: 'Current number:'
+                font_size: '32sp'
+            Label:
+                font_size: '32sp'
+                id: label_current_number
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: '10sp'
+                Button:
+                    id: button_assoc
+                    text: 'Show association'
+                    on_release: app.root.current_screen.remind()
+                Label:
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'
+                    id: label_assoc
+                Widget:
+            Widget:
+            BoxLayout:
+                spacing: '5dp'
+                orientation: 'horizontal'
+                Button:
+                    text: 'Cancel training'
+                    on_release: app.root.current_screen.on_cancel()
+                Button:
+                    text: 'Next number'
+                    on_release: app.root.current_screen.to_next_number()

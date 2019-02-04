@@ -1,0 +1,87 @@
+
+
+<NumberGroupSelector>:
+    orientation: 'vertical'
+    BoxLayout:
+        size_hint_y: 0.25
+        orientation: 'horizontal'
+        Label:
+            size_hint_x: 0.6
+            font_size: '16sp'
+            halign: 'left'
+            valign: 'middle'
+            text_size: self.size
+            text: 'Included number groups:'
+        Button:
+            size_hint_x: 0.2
+            text: 'Select all'
+            on_release: self.parent.parent.select_all()
+        Button:
+            size_hint_x: 0.2
+            text: 'Deselect all'
+            on_release: self.parent.parent.deselect_all()
+    BoxLayout:
+        size_hint_y: 0.25
+        orientation: 'horizontal'
+        id: group_wrapper_1
+        NumberGroupCheckbox:
+            text: '00-09'
+            group: '0'
+        NumberGroupCheckbox:
+            text: '10-19'
+            group: '1'
+        NumberGroupCheckbox:
+            text: '20-29'
+            group: '2'
+        NumberGroupCheckbox:
+            text: '30-39'
+            group: '3'
+    BoxLayout:
+        size_hint_y: 0.25
+        orientation: 'horizontal'
+        id: group_wrapper_2
+        NumberGroupCheckbox:
+            text: '40-49'
+            group: '4'
+        NumberGroupCheckbox:
+            text: '50-59'
+            group: '5'
+        NumberGroupCheckbox:
+            text: '60-69'
+            group: '6'
+        NumberGroupCheckbox:
+            text: '70-79'
+            group: '7'
+    BoxLayout:
+        size_hint_y: 0.25
+        orientation: 'horizontal'
+        id: group_wrapper_3
+        NumberGroupCheckbox:
+            text: '80-89'
+            group: '8'
+        NumberGroupCheckbox:
+            text: '90-99'
+            group: '9'
+        NumberGroupCheckbox:
+            text: '0-9'
+            group: '_'
+        Widget:
+
+
+<NumberCheckboxLabel@ButtonBehavior+Label>:
+    text_size: self.size
+    halign: 'right'
+    valign: 'middle'
+
+<NumberGroupCheckbox>:
+    orientation: 'horizontal'
+    spacing: '0'
+    text: ''
+    group: ''
+    NumberCheckboxLabel:
+        text: self.parent.text
+        on_press: self.parent.ids.checkbox._do_press()
+    CheckBox:
+        id: checkbox
+        # TODO: this is bad
+        on_active: app.root.training_settings.add_group(self.parent.group) if self.active else app.root.training_settings.remove_group(self.parent.group)

@@ -1,9 +1,7 @@
 import json
-from collections import defaultdict
-
 
 DIGIT_GROUPS = [
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '_', # For 0-9
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '_',  # For 0-9
 ]
 DIGIT_GROUP_NAMES = [
     '00-09', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90-99', '0-9'
@@ -13,14 +11,21 @@ DIGIT_GROUP_NAMES = [
 def get_numbers_keys_for_group(group):
     return [group + str(i) for i in range(0, 10)]
 
+
 def get_number_values_for_group(group):
     if group == '_':
         group = ''
     return [group + str(i) for i in range(0, 10)]
 
+
 def get_all_keys():
     return [key for g in DIGIT_GROUPS for key in get_numbers_keys_for_group(g)]
 
+
+def get_readable_key(group, index):
+    if group == '_':
+        group = ''
+    return group + str(index)
 
 
 class NumberConfig:

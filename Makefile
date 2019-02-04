@@ -1,7 +1,7 @@
 .PHONY=all
 
 build-android:
-	buildozer android debug run	
+	buildozer android debug deploy run
 
 run:
 	python main.py
