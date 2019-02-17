@@ -47,6 +47,10 @@ class NumberConfig:
     def get_named_groups():
         return zip(DIGIT_GROUPS, DIGIT_GROUP_NAMES)
 
+    def items(self):
+        for key, value in self._data.items():
+            yield key, value
+
 
 def read_config_from_stream(stream):
     return NumberConfig(json.loads(stream.read()))
@@ -55,3 +59,14 @@ def read_config_from_stream(stream):
 def write_config_to_stream(stream, config):
     result = {k: {'person': config.get_value_for(k)} for k in get_all_keys()}
     stream.write(json.dumps(result))
+
+
+def to_num_str(grouped_num):
+    """
+    :rtype: str
+    :param str grouped_num:
+    :return: Returns number to display
+    """
+    if grouped_num[0] == "_":
+        return grouped_num[1:]
+    return grouped_num

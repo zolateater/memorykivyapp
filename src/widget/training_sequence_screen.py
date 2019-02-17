@@ -1,19 +1,16 @@
 import random
 
 from kivy.clock import Clock
-from kivy.uix.screenmanager import Screen
 from kivy.uix.label import Label
+
+from src.widget.base_screen import BaseScreen
 from src.widget.training_sequence_settings_screen import TrainingSettings
 from src.config.number_config import NumberConfig
 
 
-class _TrainingAnswer:
-    __slots__ = ('answer', 'seconds_taken')
+class TrainingSequenceScreen(BaseScreen):
 
-
-class TrainingSequenceScreen(Screen):
-
-    def __init__(self, settings, number_config, **kw):
+    def __init__(self, **kw):
         """
 
         :param TrainingSettings settings:
@@ -21,12 +18,17 @@ class TrainingSequenceScreen(Screen):
         :param kw:
         """
         super(TrainingSequenceScreen, self).__init__(**kw)
-        self.settings = settings
-        self.number_config = number_config
-        print('Groups: ', self.settings.selected_groups)
+        self.sequence = None
+        self.settings = None
+        self.number_config = None
+        self.seconds_left = None
+        self.current_sequence_index = None
+        self.current_event = None
 
-    def update(self):
+    def update_state(self, state):
+        self.settings = state.training_settings
         self.sequence = generate_sequence(self.settings.selected_groups, self.settings.numbers_count)
+        self.number_config = state.number_config
         self.seconds_left = self.settings.time_per_number
         self.current_sequence_index = -1
         self.current_event = None
@@ -106,7 +108,9 @@ class TrainingSequenceScreen(Screen):
         self.parent.back()
 
     def finish_training(self):
-        pass
+        self.parent.state.remember_sequence = self.sequence
+        self.parent.to_screen('sequence_check')
+
 
 def generate_sequence(groups, numbers_count):
     """

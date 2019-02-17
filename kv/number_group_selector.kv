@@ -14,11 +14,11 @@
             text: 'Included number groups:'
         Button:
             size_hint_x: 0.2
-            text: 'Select all'
+            text: 'All'
             on_release: self.parent.parent.select_all()
         Button:
             size_hint_x: 0.2
-            text: 'Deselect all'
+            text: 'None'
             on_release: self.parent.parent.deselect_all()
     BoxLayout:
         size_hint_y: 0.25
@@ -83,5 +83,4 @@
         on_press: self.parent.ids.checkbox._do_press()
     CheckBox:
         id: checkbox
-        # TODO: this is bad
-        on_active: app.root.training_settings.add_group(self.parent.group) if self.active else app.root.training_settings.remove_group(self.parent.group)
+        on_active: app.root.state.training_settings.add_group(self.parent.group) if self.active else app.root.state.training_settings.remove_group(self.parent.group)

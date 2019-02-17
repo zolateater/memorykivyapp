@@ -1,12 +1,11 @@
 from kivy.animation import Animation
 from kivy.clock import Clock
-from kivy.uix.screenmanager import Screen
-from src.widget.number_group_selector import NumberGroupSelector, NumberGroupCheckbox
+from src.widget.base_screen import BaseScreen
+from src.widget.number_group_selector import NumberGroupSelector
 
 
 class TrainingSettings:
     """
-    # TODO: rename and include to the general big config
     Configuration class for storing training data.
     """
     TRAINING_SEQUENCE = 1
@@ -37,27 +36,27 @@ class TrainingSettings:
         self.selected_groups.remove(group)
 
 
-class TrainingScreen(Screen):
+class TrainingScreen(BaseScreen):
     pass
 
 
-class TrainingSelectionScreen(Screen):
+class TrainingSelectionScreen(BaseScreen):
     pass
 
 
-class TrainingOneNumberSettingsScreen(Screen):
+class TrainingOneNumberSettingsScreen(BaseScreen):
     pass
 
 
-class TrainingSequenceSettingsScreen(Screen):
+class TrainingSequenceSettingsScreen(BaseScreen):
     VALIDATION_TEXT_NO_GROUPS = 'Please, select at least one group'
 
-    def set_up(self, settings):
-        """
-        :param TrainingSettings settings:
-        :return:
-        """
-        self.settings = settings
+    def __init__(self, **kw):
+        super(TrainingSequenceSettingsScreen, self).__init__(**kw)
+        self.settings = None
+
+    def update_state(self, state):
+        self.settings = state.training_settings
 
     def on_numbers_count_change(self, new_value):
         self.ids.label_numbers_count.text = "Numbers: " + str(int(new_value))
@@ -81,9 +80,3 @@ class TrainingSequenceSettingsScreen(Screen):
             return
 
         self.parent.to_screen('training_sequence')
-
-# Sequence of numbers: X seconds for remembering each number of selected groups
-# Then you have to choose each number
-
-# Two modes: one number for X seconds number should consist of selected groups
-# In the end you need to type the whole number

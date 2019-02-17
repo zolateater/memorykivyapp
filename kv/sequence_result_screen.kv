@@ -1,0 +1,29 @@
+<SequenceResultScreen>:
+    AnchorLayout:
+        padding: ['10dp', '10dp']
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: "5dp"
+            size_hint_x: 0.9
+            size_hint_y: 0.9
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    text: 'Your score: '
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'right'
+                    font_size: '32dp'
+                Label:
+                    id: label_score
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'
+                    text: 'out of'
+                    font_size: '32dp'
+            Widget:
+            Widget:
+            Widget:
+            MenuButton:
+                text: 'Back to menu'
+                on_release: app.root.back()

@@ -4,7 +4,7 @@
         BoxLayout:
             orientation: 'vertical'
             spacing: "5dp"
-            size_hint_x: 0.7
+            size_hint_x: 0.9
             size_hint_y: 0.9
             BoxLayout:
                 orientation: 'vertical'
@@ -31,7 +31,7 @@
                 spacing: '10sp'
                 Button:
                     id: button_assoc
-                    text: 'Show association'
+                    text: 'My association'
                     on_release: app.root.current_screen.remind()
                 Label:
                     text_size: self.size
@@ -43,9 +43,9 @@
             BoxLayout:
                 spacing: '5dp'
                 orientation: 'horizontal'
-                Button:
-                    text: 'Cancel training'
+                MenuButton:
+                    text: 'Cancel'
                     on_release: app.root.current_screen.on_cancel()
-                Button:
-                    text: 'Next number'
+                MenuButton:
+                    text: 'Next'
                     on_release: app.root.current_screen.to_next_number()

@@ -1,9 +1,10 @@
 from kivy.app import App
-from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
 
 from src.config.number_config import write_config_to_stream, get_readable_key
 from copy import deepcopy
+
+from src.widget.base_screen import BaseScreen
 
 
 def by_chunk(iterable, n):
@@ -21,11 +22,16 @@ class NumberInputGroup(BoxLayout):
     pass
 
 
-# TODO: refactor this shit
-class ListScreen(Screen):
+class ListScreen(BaseScreen):
 
-    def set_up(self, config):
-        self.config = config
+    def __init__(self, **kw):
+        super(ListScreen, self).__init__(**kw)
+        self.config = None
+        self.local_config = None
+        self.current_group_id = None
+
+    def update_state(self, state):
+        self.config = state.number_config
         self.local_config = deepcopy(self.config)
         self.current_group_id = "0"
         self.colorize_buttons()
@@ -70,8 +76,7 @@ class ListScreen(Screen):
         self.colorize_buttons()
 
     def save_changes(self):
-        # TODO: better NumberConfig interface
-        for key, value in self.local_config._data.items():
+        for key, value in self.local_config.items():
             self.config.set_value_for(key, value)
         with open(App.get_running_app().get_application_config(), 'w') as file_stream:
             write_config_to_stream(file_stream, self.config)
@@ -81,6 +86,3 @@ class ListScreen(Screen):
         self.local_config = deepcopy(self.config)  # Drop changes in config
         self.parent.to_main_screen()
 
-    def update(self):
-        self.colorize_buttons()
-        self.populate_inputs_and_labels()
