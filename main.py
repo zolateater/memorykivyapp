@@ -11,6 +11,7 @@ from src.widget.base_screen import BaseScreen
 from src.widget.list_screen import ListScreen
 from src.widget.sequence_check_screen import SequenceCheckScreen
 from src.widget.sequence_result_screen import SequenceResultScreen
+from src.widget.training_one_number_settings_screen import TrainingOneNumberSettingsScreen
 from src.widget.training_sequence_settings_screen import TrainingScreen, TrainingSelectionScreen, TrainingSettings, \
     TrainingSequenceSettingsScreen
 from src.widget.training_sequence_screen import TrainingSequenceScreen
@@ -27,6 +28,7 @@ class MemoryScreenManager(ScreenManager):
         'list': 'main',
         'training_selection': 'main',
         'training_sequence_settings': 'training_selection',
+        'training_one_number_settings': 'training_selection',
         'training_sequence': 'training_sequence_settings',
         'sequence_check': 'training_sequence_settings',
         'sequence_result': 'main',
@@ -37,6 +39,7 @@ class MemoryScreenManager(ScreenManager):
         'training_selection': TrainingSelectionScreen,
         'training_sequence_settings': TrainingSequenceSettingsScreen,
         'training_sequence': TrainingSequenceScreen,
+        'training_one_number_settings': TrainingOneNumberSettingsScreen,
         'sequence_check': SequenceCheckScreen,
         'sequence_result': SequenceResultScreen
     }
@@ -50,8 +53,6 @@ class MemoryScreenManager(ScreenManager):
         super(MemoryScreenManager, self).__init__(**kw)
         self.state = app_state
 
-    # screen manager should have access to config - thus we will be able to encapsulate screen changes
-
     def back(self):
         parent = self.SCREEN_PARENTS.get(self.current_screen.name)
         if parent is None:
@@ -59,6 +60,9 @@ class MemoryScreenManager(ScreenManager):
         self.__back_to_screen(parent)
 
     def to_screen(self, screen_name):
+        """
+        :param str screen_name:
+        """
         if screen_name not in self.screen_names:
             self.add_widget(self.__build_screen(screen_name))
         parent = self.SCREEN_PARENTS.get(self.current_screen.name, None)
@@ -77,7 +81,6 @@ class MemoryScreenManager(ScreenManager):
         """
         Changes active screen using forward animation
         :param str screen_name:
-        :return:
         """
         self.transition.direction = 'left'
         self.current = screen_name
@@ -139,7 +142,8 @@ class MemoryApp(App):
     def build(self):
         app_state = AppState(
             number_config=read_config_from_disk(self.get_application_config()),
-            training_settings=TrainingSettings(numbers_count=10, time_per_number=10),
+            training_settings=TrainingSettings(numbers_count=10, time_per_number=10, time_one_number=30,
+                                               number_length=10),
             remember_sequence=[],
             answers=[]
         )

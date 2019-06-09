@@ -44,10 +44,6 @@ class TrainingSelectionScreen(BaseScreen):
     pass
 
 
-class TrainingOneNumberSettingsScreen(BaseScreen):
-    pass
-
-
 class TrainingSequenceSettingsScreen(BaseScreen):
     VALIDATION_TEXT_NO_GROUPS = 'Please, select at least one group'
 

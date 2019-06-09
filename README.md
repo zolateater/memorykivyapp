@@ -15,3 +15,5 @@ class YourWidget(Widget):
 ```
 
 Option 2 breaks the app on android.
+
+Type annotations also break the app.

@@ -84,10 +84,10 @@ class TrainingSequenceScreen(BaseScreen):
         remind_value = self.number_config.get_value_for(self.sequence[self.current_sequence_index])
         if remind_value:
             remind_btn.disabled = False
-            remind_btn.text = 'Show association'
+            remind_btn.text = 'Show tip'
         else:
             remind_btn.disabled = True
-            remind_btn.text = 'No association'
+            remind_btn.text = 'No tip'
 
         self.label_numbers_count().text = "%s out of %s" % (self.current_sequence_index + 1, len(self.sequence))
 
@@ -118,7 +118,18 @@ def generate_sequence(groups, numbers_count):
     :param numbers_count:
     :rtype: list
     """
-    return [random.choice(list(groups)) + str(random.choice(range(10))) for _ in range(numbers_count)]
+    group_iterators = [random_group_generator(group) for group in groups]
+    items = [next(random.choice(group_iterators)) for _ in range(numbers_count)]
+    random.shuffle(items)  # to split groups if there is only one group but many numbers
+    return items
+
+
+def random_group_generator(group):
+    items = list(range(10))
+    while True:
+        random.shuffle(items)
+        for i in items:
+            yield group + str(i)
 
 
 def to_num_str(grouped_num):

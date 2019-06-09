@@ -1,0 +1,41 @@
+<TrainingOneNumberSettingsScreen>:
+    AnchorLayout:
+        padding: ['10dp', '10dp']
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: "5dp"
+            size_hint_x: 0.9
+            size_hint_y: 0.9
+            Widget:
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: label_number_length
+                Slider:
+                    id: slider_number_length
+                    min: 10
+                    max: 30
+                    step: 1
+                    value: 0
+                    on_value: app.root.current_screen.on_length_change(self.value)
+            Widget:
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: label_time
+                Slider:
+                    id: slider_time
+                    min: 10
+                    max: 60
+                    step: 5
+                    value: 0
+                    on_value: on_value: app.root.current_screen.on_seconds_change(self.value)
+            Widget:
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: '5dp'
+                MenuButton:
+                    text: 'Back'
+                    on_release: app.root.to_screen('training_selection')
+                MenuButton:
+                    text: 'Start'
