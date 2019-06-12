@@ -9,6 +9,7 @@
 #:include kv/sequence_check_screen.kv
 #:include kv/sequence_result_screen.kv
 #:include kv/list_screen.kv
+#:include kv/how_it_works_screen.kv
 
 <MenuButton>:
     font_size: '30sp'
@@ -23,6 +24,7 @@
         font_size: '40sp'
     MenuButton:
         text: 'How this works?'
+        on_release: app.root.to_screen('how_it_works')
     MenuButton:
         text: 'Your list'
         on_release: app.root.to_screen('list')

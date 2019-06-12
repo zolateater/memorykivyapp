@@ -8,6 +8,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from src.config.app_state import AppState
 from src.config.number_config import NumberConfig, read_config_from_stream
 from src.widget.base_screen import BaseScreen
+from src.widget.how_it_works_screen import HowItWorksScreen
 from src.widget.list_screen import ListScreen
 from src.widget.one_number_check_screen import OneNumberCheckScreen
 from src.widget.one_number_result_screen import OneNumberResultScreen
@@ -38,6 +39,7 @@ class MemoryScreenManager(ScreenManager):
         'one_number': 'one_number_settings',
         'one_number_check': 'one_number_settings',
         'one_number_result': 'main',
+        'how_it_works': 'main',
     }
 
     SCREEN_NAME_TO_CLASS = {
@@ -51,6 +53,7 @@ class MemoryScreenManager(ScreenManager):
         'one_number': OneNumberScreen,
         'one_number_check': OneNumberCheckScreen,
         'one_number_result': OneNumberResultScreen,
+        'how_it_works': HowItWorksScreen,
     }
 
     PRELOADED_SCREENS = {'list'}  # For screens which take too much time to initialize

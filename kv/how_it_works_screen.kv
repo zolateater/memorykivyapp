@@ -1,0 +1,21 @@
+<HowItWorksScreen>:
+    AnchorLayout:
+        padding: ['10dp', '10dp']
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: "5dp"
+            size_hint_x: 0.9
+            size_hint_y: 0.9
+            ScrollView:
+                Label:
+                    text_size: self.width, None
+                    height: self.texture_size[1]
+                    size_hint_y: None
+                    font_size: '16dp'
+                    multiline: True
+                    text: """Have you heard about Dominic O'Brien? This guy suggested a technique to remember large numbers. \nFirst, you need to prepare a list of characters for each combination of 2 digits. \nThen you need to learn your own list. \n\nAfter that when you need to remember some number you can just split it by 2 digits and memoize your characters. \nSo this app allows you to simplify maintaining of such list and to do some practice."""
+            MenuButton:
+                size_hint_y: 0.2
+                text: 'Back to menu'
+                on_release: app.root.back()
