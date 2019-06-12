@@ -1,2 +1,3 @@
 - [Kivy crash course](http://inclem.net/pages/kivy-crash-course/)
-
+- https://github.com/kivy/kivy/wiki/Creating-a-Release-APK
+- https://developer.android.com/studio/publish/app-signing.html
