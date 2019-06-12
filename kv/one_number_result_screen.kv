@@ -1,0 +1,26 @@
+<OneNumberResultScreen>:
+    AnchorLayout:
+        padding: ['10dp', '10dp']
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: "5dp"
+            size_hint_x: 0.9
+            size_hint_y: 0.9
+            Widget:
+            Label:
+                id: label_error_count
+                font_size: '30sp'
+            Widget:
+            Label:
+                markup: True
+                id: label_expected_answer
+                font_size: '25sp'
+            Label:
+                markup: True
+                id: label_actual_answer
+                font_size: '25sp'
+            Widget:
+            MenuButton:
+                text: 'Back to menu'
+                on_release: app.root.back()

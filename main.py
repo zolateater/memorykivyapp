@@ -9,9 +9,12 @@ from src.config.app_state import AppState
 from src.config.number_config import NumberConfig, read_config_from_stream
 from src.widget.base_screen import BaseScreen
 from src.widget.list_screen import ListScreen
+from src.widget.one_number_check_screen import OneNumberCheckScreen
+from src.widget.one_number_result_screen import OneNumberResultScreen
+from src.widget.one_number_screen import OneNumberScreen
 from src.widget.sequence_check_screen import SequenceCheckScreen
 from src.widget.sequence_result_screen import SequenceResultScreen
-from src.widget.training_one_number_settings_screen import TrainingOneNumberSettingsScreen
+from src.widget.one_number_settings_screen import OneNumberSettingsScreen
 from src.widget.training_sequence_settings_screen import TrainingScreen, TrainingSelectionScreen, TrainingSettings, \
     TrainingSequenceSettingsScreen
 from src.widget.training_sequence_screen import TrainingSequenceScreen
@@ -28,10 +31,13 @@ class MemoryScreenManager(ScreenManager):
         'list': 'main',
         'training_selection': 'main',
         'training_sequence_settings': 'training_selection',
-        'training_one_number_settings': 'training_selection',
         'training_sequence': 'training_sequence_settings',
         'sequence_check': 'training_sequence_settings',
         'sequence_result': 'main',
+        'one_number_settings': 'training_selection',
+        'one_number': 'one_number_settings',
+        'one_number_check': 'one_number_settings',
+        'one_number_result': 'main',
     }
 
     SCREEN_NAME_TO_CLASS = {
@@ -39,10 +45,15 @@ class MemoryScreenManager(ScreenManager):
         'training_selection': TrainingSelectionScreen,
         'training_sequence_settings': TrainingSequenceSettingsScreen,
         'training_sequence': TrainingSequenceScreen,
-        'training_one_number_settings': TrainingOneNumberSettingsScreen,
         'sequence_check': SequenceCheckScreen,
-        'sequence_result': SequenceResultScreen
+        'sequence_result': SequenceResultScreen,
+        'one_number_settings': OneNumberSettingsScreen,
+        'one_number': OneNumberScreen,
+        'one_number_check': OneNumberCheckScreen,
+        'one_number_result': OneNumberResultScreen,
     }
+
+    PRELOADED_SCREENS = {'list'}  # For screens which take too much time to initialize
 
     def __init__(self, app_state, **kw):
         """
@@ -52,6 +63,11 @@ class MemoryScreenManager(ScreenManager):
         """
         super(MemoryScreenManager, self).__init__(**kw)
         self.state = app_state
+        self.__preload_screens()
+
+    def __preload_screens(self):
+        for screen in self.PRELOADED_SCREENS:
+            self.add_widget(self.__build_screen(screen))
 
     def back(self):
         parent = self.SCREEN_PARENTS.get(self.current_screen.name)
@@ -124,7 +140,7 @@ def read_config_from_disk(path):
     except FileNotFoundError:
         logging.info('No config file found.')
         return NumberConfig()
-    except Exception as e:
+    except Exception:
         logging.exception("Cannot read the file")
         return NumberConfig()
 
@@ -145,7 +161,8 @@ class MemoryApp(App):
             training_settings=TrainingSettings(numbers_count=10, time_per_number=10, time_one_number=30,
                                                number_length=10),
             remember_sequence=[],
-            answers=[]
+            answers=[],
+            remember_number=''
         )
 
         return MemoryScreenManager(app_state)

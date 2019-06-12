@@ -1,0 +1,30 @@
+<OneNumberScreen>:
+    AnchorLayout:
+        padding: ['10dp', '10dp']
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: "5dp"
+            size_hint_x: 0.9
+            size_hint_y: 0.9
+            Label:
+                text: 'Here is your number:'
+                font_size: '40sp'
+            Widget:
+            Label:
+                id: label_number
+                text: '2131234851'
+                font_size: '22sp'
+            Label:
+                id: label_timer
+                text: 'Seconds left: 30'
+            Widget:
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: '5dp'
+                MenuButton:
+                    text: 'Back'
+                    on_release: app.root.to_screen('one_number_settings')
+                MenuButton:
+                    text: 'Done'
+                    on_release: app.root.current_screen.forward()

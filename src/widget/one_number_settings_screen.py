@@ -2,10 +2,10 @@ from src.config.app_state import AppState
 from src.widget.base_screen import BaseScreen
 
 
-class TrainingOneNumberSettingsScreen(BaseScreen):
+class OneNumberSettingsScreen(BaseScreen):
 
     def __init__(self, **kw):
-        super(TrainingOneNumberSettingsScreen, self).__init__(**kw)
+        super(OneNumberSettingsScreen, self).__init__(**kw)
         self.state = None  # type: AppState
 
     def update_state(self, state):

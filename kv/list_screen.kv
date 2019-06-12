@@ -1,0 +1,143 @@
+<ListScreen>:
+    id: listscreen
+    AnchorLayout:
+        id: 'anchor'
+        padding: ['10dp', '10dp']
+        BoxLayout:
+            id: box_tabs
+            spacing: '10dp'
+            orientation: 'vertical'
+            size_hint: 0.9, 0.9
+            BoxLayout:
+                id: group_select_layout
+                spacing: '5dp'
+                orientation: 'vertical'
+                size_hint: 1, 0.2
+                BoxLayout:
+                    orientation: 'horizontal'
+                    spacing: '5sp'
+                    ToggleButton:
+                        state: 'down'
+                        allow_no_selection: False
+                        group: 'tens_group'
+                        text: '00-09'
+                        id: group_button_0
+                        group_id: '0'
+                        on_release: app.root.current_screen.on_group_select(self)
+                    ToggleButton:
+                        allow_no_selection: False
+                        group: 'tens_group'
+                        text: '10-19'
+                        group_id: '1'
+                        id: group_button_1
+                        on_release: app.root.current_screen.on_group_select(self)
+                    ToggleButton:
+                        allow_no_selection: False
+                        group: 'tens_group'
+                        text: '20-29'
+                        group_id: '2'
+                        id: group_button_2
+                        on_release: app.root.current_screen.on_group_select(self)
+                    ToggleButton:
+                        allow_no_selection: False
+                        group: 'tens_group'
+                        text: '30-39'
+                        group_id: '3'
+                        id: group_button_3
+                        on_release: app.root.current_screen.on_group_select(self)
+                    ToggleButton:
+                        allow_no_selection: False
+                        group: 'tens_group'
+                        text: '40-49'
+                        group_id: '4'
+                        id: group_button_4
+                        on_release: app.root.current_screen.on_group_select(self)
+                BoxLayout:
+                    orientation: 'horizontal'
+                    spacing: '5sp'
+                    ToggleButton:
+                        allow_no_selection: False
+                        group: 'tens_group'
+                        text: '50-59'
+                        group_id: '5'
+                        id: group_button_5
+                        on_release: app.root.current_screen.on_group_select(self)
+                    ToggleButton:
+                        allow_no_selection: False
+                        group: 'tens_group'
+                        text: '60-69'
+                        group_id: '6'
+                        id: group_button_6
+                        on_release: app.root.current_screen.on_group_select(self)
+                    ToggleButton:
+                        allow_no_selection: False
+                        group: 'tens_group'
+                        text: '70-79'
+                        group_id: '7'
+                        id: group_button_7
+                        on_release: app.root.current_screen.on_group_select(self)
+                    ToggleButton:
+                        allow_no_selection: False
+                        group: 'tens_group'
+                        text: '80-89'
+                        group_id: '8'
+                        id: group_button_8
+                        on_release: app.root.current_screen.on_group_select(self)
+                    ToggleButton:
+                        allow_no_selection: False
+                        group: 'tens_group'
+                        text: '90-99'
+                        group_id: '9'
+                        id: group_button_9
+                        on_release: app.root.current_screen.on_group_select(self)
+                BoxLayout:
+                    orientation: 'horizontal'
+                    spacing: '5sp'
+                    Widget:
+                    Widget:
+                    ToggleButton:
+                        allow_no_selection: False
+                        group: 'tens_group'
+                        text: '0-9'
+                        group_id: '_'
+                        id: group_button__
+                        on_release: app.root.current_screen.on_group_select(self)
+                    Widget:
+                    Widget:
+
+            BoxLayout:
+                id: number_input_layout
+                orientation: 'vertical'
+                size_hint: 1, 0.7
+                NumberInputGroup:
+                    index: 0
+                NumberInputGroup:
+                    index: 1
+                NumberInputGroup:
+                    index: 2
+                NumberInputGroup:
+                    index: 3
+                NumberInputGroup:
+                    index: 4
+                NumberInputGroup:
+                    index: 5
+                NumberInputGroup:
+                    index: 6
+                NumberInputGroup:
+                    index: 7
+                NumberInputGroup:
+                    index: 8
+                NumberInputGroup:
+                    index: 9
+            AnchorLayout:
+                size_hint: 1, 0.1
+                BoxLayout:
+                    size_hint: 1, 1
+                    orientation: 'horizontal'
+                    spacing: '5dp'
+                    Button:
+                        text: 'Cancel'
+                        on_release: app.root.current_screen.cancel()
+                    Button:
+                        text: 'Save'
+                        on_release: app.root.current_screen.save_changes()

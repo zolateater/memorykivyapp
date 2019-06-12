@@ -1,0 +1,23 @@
+<OneNumberCheckScreen>:
+    AnchorLayout:
+        padding: ['10dp', '10dp']
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: "5dp"
+            size_hint_x: 0.9
+            size_hint_y: 0.9
+            Widget:
+            Label:
+                text: 'Enter the number:'
+                font_size: '30sp'
+            TextInput:
+                multiline: False
+                id: input_answer
+                on_text: app.root.current_screen.update_answer(self.text)
+                font_size: '30sp'
+            Widget:
+            Widget:
+            MenuButton:
+                text: 'Check'
+                on_release: app.root.to_screen('one_number_result')
